@@ -14,7 +14,6 @@ __version__ = 0.1
 def get_stopwords():
     '''selecting words which appear only in the web text corpus and not in stop words'''
     stopwords_list = list(nltk_stopwords.words('english'))
-    stopwords_list = stopwords_list + list(wordcloud_stopwords)
 
     return stopwords_list
 
