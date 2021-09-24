@@ -66,14 +66,15 @@ def find_discriminative_words(top_words_df, threshold_i=5, threshold_j=5, num_i=
     counts_i_name = top_words_df.columns[2]
     counts_j_name = top_words_df.columns[3]
     
-    # tmp = top_words_df[top_words_df[counts_i_name] >= threshold_i].query('log_odds_z_score < 0').iloc[::-1].head(num_i)
-    tmp = top_words_df[top_words_df[counts_i_name] >= threshold_i].iloc[::-1].head(num_i)
+    # tmp = top_words_df[top_words_df[counts_j_name] >= threshold_j].query('log_odds_z_score > 0').head(num_j)
+    tmp = top_words_df[top_words_df[counts_j_name] >= threshold_j].head(num_j)
+    
     with open(f"{mypath}/word_counts/wordcloud_word_{counts_i_name}_zscore.csv", "w") as output:
         for index, row in tmp.iterrows():
             output.write(",".join(["_".join(row['word'].split()), str(-1.0*row['log_odds_z_score'])])+"\n")
 
-    # tmp = top_words_df[top_words_df[counts_j_name] >= threshold_j].query('log_odds_z_score > 0').head(num_j)
-    tmp = top_words_df[top_words_df[counts_j_name] >= threshold_j].head(num_j)
+    # tmp = top_words_df[top_words_df[counts_i_name] >= threshold_i].query('log_odds_z_score < 0').iloc[::-1].head(num_i)
+    tmp = top_words_df[top_words_df[counts_i_name] >= threshold_i].iloc[::-1].head(num_i)
     with open(f"{mypath}/word_counts/wordcloud_word_{counts_j_name}_zscore.csv", "w") as output:
         for index, row in tmp.iterrows():
             output.write(",".join(["_".join(row['word'].split()), str(row['log_odds_z_score'])])+"\n")
